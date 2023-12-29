@@ -14,6 +14,10 @@ export class LocationsService {
     return this.http.get<Location>(`${this.host}/locations/${id}`);
   }
 
+  getAllLocations(): Observable<Location[]> {
+    return this.http.get<Location[]>(this.host + '/locations/all');
+  }
+
   deleteLocation(l: Location): Observable<void> {
     return this.http.delete<void>(`${this.host}/locations/${l.id}`);
   }

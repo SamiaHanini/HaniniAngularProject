@@ -14,15 +14,23 @@ export class TaxisService {
     return this.http.get<Taxi>(`${this.host}/taxis/${id}`);
   }
 
-  searchTaxisByCarburant(carburant: string): Observable<Taxi[]> {
-    return this.http.get<Taxi[]>(`${this.host}/taxis/carburant/${carburant}`);
+  getAllTaxis(): Observable<Taxi[]> {
+    return this.http.get<Taxi[]>(this.host + '/taxis/all');
+  }
+
+  // searchTaxisByCarburant(carburant: string): Observable<Taxi[]> {
+  //   return this.http.get<Taxi[]>(`${this.host}/taxis/carburant/${carburant}`);
+  // }
+
+  getTaxisByImmatriculation(immatriculation: string): Observable<Taxi> {
+    return this.http.get<Taxi>(`${this.host}/taxis/immatriculation/${immatriculation}`);
   }
 
   deleteTaxi(t: Taxi): Observable<void> {
     return this.http.delete<void>(`${this.host}/taxis/${t.id}`);
   }
 
-  save(t: Taxi): Observable<Taxi> {
+  saveTaxi(t: Taxi): Observable<Taxi> {
     return this.http.post<Taxi>(`${this.host}/taxis/`, t);
   }
 

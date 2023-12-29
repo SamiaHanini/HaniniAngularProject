@@ -1,0 +1,52 @@
+<div class="container">
+    <form [formGroup]="locationFormGroup" *ngIf="locationFormGroup">
+  
+      <div class="form-group">
+        <label>Date de location</label>
+        <input type="text" class="form-control" formControlName="dateLoc"
+               [ngClass]="{'is-invalid': submitted && locationFormGroup.controls.dateLoc.errors}">
+        <div *ngIf="submitted && locationFormGroup.controls.dateLoc.errors" class="invalid-feedback">
+          <div *ngIf="locationFormGroup.controls.dateLoc.errors.required">
+            Date de location obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Kilométrage total</label>
+        <input type="text" class="form-control" formControlName="kmtotal"
+               [ngClass]="{'is-invalid': submitted && locationFormGroup.controls.kmtotal.errors}">
+        <div *ngIf="submitted && locationFormGroup.controls.kmtotal.errors" class="invalid-feedback">
+          <div *ngIf="locationFormGroup.controls.kmtotal.errors.required">
+            Kilométrage total obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Acompte</label>
+        <input type="text" class="form-control" formControlName="acompte"
+               [ngClass]="{'is-invalid': submitted && locationFormGroup.controls.acompte.errors}">
+        <div *ngIf="submitted && locationFormGroup.controls.acompte.errors" class="invalid-feedback">
+          <div *ngIf="locationFormGroup.controls.acompte.errors.required">
+            Acompte obligatoire
+          </div>
+        </div>
+      </div>
+  
+       <app-newclient (addedClient)="onAddedClient($event)"></app-newclient>
+
+      <app-newtaxi (addedTaxi)="onAddedTaxi($event)"></app-newtaxi>
+
+       <app-newadresse (addedAdresse)="onAddedAdresse($event)"></app-newadresse>
+
+       <app-newadresse (addedAdresse)="onAddedAdresse($event)"></app-newadresse>
+
+   
+      <button (click)="onSaveLocation()" class="btn btn-success">
+        Save
+      </button>
+    </form>
+    </div>
+
+  

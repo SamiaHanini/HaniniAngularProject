@@ -6,6 +6,6 @@ export interface Taxi {
   immatriculation: string;
   carburant:string;
   prixkm: number;
-  locations: Location[];
+  //locations: Location[];
 }
 

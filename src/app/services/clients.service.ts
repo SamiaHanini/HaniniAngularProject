@@ -14,6 +14,10 @@ export class ClientsService {
     return this.http.get<Client>(`${this.host}/clients/${id}`);
   }
 
+  getAllClients(): Observable<Client[]> {
+    return this.http.get<Client[]>(`${this.host}/clients/`);
+  }
+
   deleteClient(c: Client): Observable<void> {
     return this.http.delete<void>(`${this.host}/clients/${c.id}`);
   }
@@ -24,6 +28,10 @@ export class ClientsService {
 
   updateClient(c: Client): Observable<Client> {
     return this.http.put<Client>(`${this.host}/clients/${c.id}`, c);
+  }
+
+  getClientByNomAndPrenomAndTel(nom: string, prenom: string, tel: string): Observable<Client[]> {
+    return this.http.get<Client[]>(`${this.host}/clients/${nom}/${prenom}/${tel}`);
   }
 
   //TODO: Implement the following methods

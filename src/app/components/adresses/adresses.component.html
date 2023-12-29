@@ -1,1 +1,67 @@
-<p>adresses works!</p>
+<div class="container">
+  <div class="card mt-4">
+    <div class="card-body">
+      <h3 class="card-title">Adresse</h3>
+
+      <form #f="ngForm" (ngSubmit)="getAdresseByLocalite(f.value)" class="mb-3">
+        <div class="input-group">
+            <input type="text" class="form-control" ngModel name="localite" placeholder="Localité des adresses">
+          <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+      </form>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary" (click)="showAll()">Afficher toutes les adresses</button>
+        <button class="btn btn-success" (click)="onNewAdresse()">Ajouter une nouvelle adresse</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="adresses">
+    <ng-container *ngIf="adresses.length > 0; else inconnu">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="card-title">Adresses trouvées :</h3>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Code Postal</th>
+                <th scope="col">Localité</th>
+                <th scope="col">Rue</th>
+                <th scope="col">Numéro</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let adresse of adresses">
+                <td>{{ adresse.id }}</td>
+                <td>{{ adresse.cp }}</td>
+                <td>{{ adresse.localite }}</td>
+                <td>{{ adresse.rue }}</td>
+                <td>{{ adresse.num }}</td>
+                <td>
+                  <button (click)="onEdit(adresse)" class="btn btn-primary btn-sm me-2">
+                    <span class="fa fa-edit"></span> Modifier
+                  </button>
+                  <button (click)="onDelete(adresse)" class="btn btn-danger btn-sm">
+                    <span class="fa fa-trash-o"></span> Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #inconnu>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="card-title">Aucune adresse trouvée</h3>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

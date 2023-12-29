@@ -14,6 +14,14 @@ export class AdressesService {
     return this.http.get<Adresse>(`${this.host}/adresses/${id}`);
   }
 
+  getAdresseByLocalite(localite: string): Observable<Adresse> {
+    return this.http.get<Adresse>(`${this.host}/adresses/localite/${localite}`);
+  }
+
+  getAllAdresses(): Observable<Adresse[]> {
+    return this.http.get<Adresse[]>(`${this.host}/adresses/`);
+  }
+
   searchAdresseByLocality(localite: string): Observable<Adresse[]> {
     return this.http.get<Adresse[]>(`${this.host}/adresses/localite/${localite}`);
   }

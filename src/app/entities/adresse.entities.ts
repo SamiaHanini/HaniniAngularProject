@@ -6,6 +6,6 @@ export interface Adresse{
     localite: string;
     rue: string;
     num: string;
-    llocationsDebut: Location[];
-    llocationsFin: Location[];
+   // llocationsDebut: Location[];
+    //llocationsFin: Location[];
 }

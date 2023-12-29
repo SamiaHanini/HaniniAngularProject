@@ -1,1 +1,65 @@
-<p>taxis works!</p>
+<div class="container">
+  <div class="card mt-4">
+    <div class="card-body">
+      <h3 class="card-title">Taxi</h3>
+
+      <form #f="ngForm" (ngSubmit)="getTaxisByImmatriculation(f.value)" class="mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" ngModel name="immatriculation" placeholder="Immatriculation du taxi">
+          <button type="submit" class="btn btn-primary">Rechercher</button>
+        </div>
+      </form>
+
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary" (click)="showAll()">Afficher tous les taxis</button>
+        <button class="btn btn-success" (click)="onNewTaxi()">Ajouter un nouveau taxi</button>
+      </div>
+    </div>
+  </div>
+
+  <ng-container *ngIf="taxis">
+    <ng-container *ngIf="taxis.length > 0; else inconnu">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="card-title">Taxis trouvés :</h3>
+
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th scope="col">ID</th>
+              <th scope="col">Immatriculation</th>
+              <th scope="col">Carburant</th>
+              <th scope="col">Prix par kilomètre</th>
+              <th scope="col">Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let taxi of taxis">
+              <td>{{ taxi.id }}</td>
+              <td>{{ taxi.immatriculation }}</td>
+              <td>{{ taxi.carburant }}</td>
+              <td>{{ taxi.prixkm }}</td>
+              <td>
+                <button (click)="onEdit(taxi)" class="btn btn-primary btn-sm me-2">
+                  <span class="fa fa-edit"></span> Modifier
+                </button>
+                <button (click)="onDelete(taxi)" class="btn btn-danger btn-sm">
+                  <span class="fa fa-trash-o"></span> Supprimer
+                </button>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #inconnu>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="card-title">Aucun taxi trouvé</h3>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>

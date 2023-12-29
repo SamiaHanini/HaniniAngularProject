@@ -1,0 +1,43 @@
+<div class="container">
+
+  <form [formGroup]="taxiFormGroup" *ngIf="taxiFormGroup">
+
+    <div class="form-group">
+      <label>Immatriculation</label>
+      <input type="text" class="form-control" formControlName="immatriculation"
+             [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.immatriculation.errors}">
+      <div *ngIf="submitted && taxiFormGroup.controls.immatriculation.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.immatriculation.errors.required">
+          Immatriculation obligatoire
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Carburant</label>
+      <input type="text" class="form-control" formControlName="carburant"
+             [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.carburant.errors}">
+      <div *ngIf="submitted && taxiFormGroup.controls.carburant.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.carburant.errors.required">
+          Carburant obligatoire
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Prix par kilomètre</label>
+      <input type="number" class="form-control" formControlName="prixkm"
+             [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.prixkm.errors}">
+      <div *ngIf="submitted && taxiFormGroup.controls.prixkm.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.prixkm.errors.required">
+          Prix par kilomètre obligatoire
+        </div>
+      </div>
+    </div>
+
+    <button (click)="onSaveTaxi()" class="btn btn-success">
+      Save
+    </button>
+  </form>
+
+</div>

@@ -1,0 +1,58 @@
+<div class="container">
+    <form [formGroup]="locationFormGroup" *ngIf="locationFormGroup">
+      <div class="form-group">
+        <label>ID</label>
+        <input type="text" class="form-control" formControlName="id" readonly>
+      </div>
+  
+      <div class="form-group">
+        <label>Date de location</label>
+        <input type="date" class="form-control" formControlName="dateLoc"
+               [ngClass]="{'is-invalid': submitted && locationFormGroup.controls.dateLoc.errors}">
+        <div *ngIf="submitted && locationFormGroup.controls.dateLoc.errors" class="invalid-feedback">
+          <div *ngIf="locationFormGroup.controls.dateLoc.errors.required">
+            Date de location obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Kilométrage total</label>
+        <input type="number" class="form-control" formControlName="kmtotal"
+               [ngClass]="{'is-invalid': submitted && locationFormGroup.controls.kmtotal.errors}">
+        <div *ngIf="submitted && locationFormGroup.controls.kmtotal.errors" class="invalid-feedback">
+          <div *ngIf="locationFormGroup.controls.kmtotal.errors.required">
+            Kilométrage total obligatoire
+          </div>
+          <div *ngIf="locationFormGroup.controls.kmtotal.errors.min">
+            Kilométrage total doit être supérieur à 0
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Acompte</label>
+        <input type="number" class="form-control" formControlName="acompte"
+               [ngClass]="{'is-invalid': submitted && locationFormGroup.controls.acompte.errors}">
+        <div *ngIf="submitted && locationFormGroup.controls.acompte.errors" class="invalid-feedback">
+          <div *ngIf="locationFormGroup.controls.acompte.errors.required">
+            Acompte obligatoire
+          </div>
+          <div *ngIf="locationFormGroup.controls.acompte.errors.min">
+            Acompte doit être supérieur à 0
+          </div>
+        </div>
+      </div>
+    
+      <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar navbar-nav">
+          <li class="nav-item">
+            <button (click)="updateLocation()" class="btn btn-success">
+              Save
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </form>
+  </div>
+  

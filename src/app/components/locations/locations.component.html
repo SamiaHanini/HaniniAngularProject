@@ -1,1 +1,77 @@
-<p>locations works!</p>
+
+<div class="container">
+    <div class="card mt-4">
+      <div class="card-body">
+        <h3 class="card-title">Location</h3>
+  
+        <form #f="ngForm" (ngSubmit)="onSearch(f.value)" class="mb-3">
+          <div class="input-group">
+            <input type="number" class="form-control" ngModel name="id" placeholder="ID de la location">
+            <button type="submit" class="btn btn-primary">Rechercher</button>
+          </div>
+        </form>
+  
+        <div class="d-flex justify-content-between align-items-center">
+          <button class="btn btn-primary" (click)="showAll()">Afficher toutes les locations</button>
+          <button class="btn btn-success" (click)="onNewLocation()">Ajouter une nouvelle location</button>
+        </div>
+      </div>
+    </div>
+  
+    <ng-container *ngIf="locations">
+      <ng-container *ngIf="locations.length > 0; else inconnu">
+        <div class="card mt-4">
+          <div class="card-body">
+            <h3 class="card-title">Locations trouvées :</h3>
+  
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Date de location</th>
+                  <th scope="col">Kilométrage total</th>
+                  <th scope="col">Acompte</th>
+                  <th scope="col">Total</th>
+                  <th scope="col">Client</th>
+                  <th scope="col">Taxi</th>
+                  <th scope="col">Départ</th>
+                  <th scope="col">Arrivée</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let location of locations">
+                  <td>{{ location.id }}</td>
+                  <td>{{ location.dateLoc }}</td>
+                  <td>{{ location.kmtotal }}</td>
+                  <td>{{ location.acompte }}</td>
+                  <td>{{ location.total }}</td>
+                  <td>{{ location.client.nom }} {{ location.client.prenom }}</td>
+                  <td>{{ location.taxi.immatriculation }}</td>
+                  <td>{{ location.adresseDebut.localite }}</td>
+                  <td>{{ location.adresseFin.localite }}</td>
+                  <td>
+                    <button (click)="onEdit(location)" class="btn btn-primary btn-sm me-2">
+                      <span class="fa fa-edit"></span> Modifier
+                    </button>
+                    <button (click)="onDelete(location)" class="btn btn-danger btn-sm">
+                      <span class="fa fa-trash-o"></span> Supprimer
+                    </button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </ng-container>
+  
+      <ng-template #inconnu>
+        <div class="card mt-4">
+          <div class="card-body">
+            <h3 class="card-title">Aucune location trouvée</h3>
+          </div>
+        </div>
+      </ng-template>
+    </ng-container>
+  </div>
+  

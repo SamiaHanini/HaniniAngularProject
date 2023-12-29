@@ -5,8 +5,6 @@ import {MainMenuComponent} from "./components/main-menu/main-menu.component";
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [CommonModule, RouterOutlet, MainMenuComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

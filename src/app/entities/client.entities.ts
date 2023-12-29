@@ -6,5 +6,5 @@ export interface Client{
     nom: string;
     prenom: string;
     tel: string;
-    locations: Location[];
+  //  locations: Location[];
 }

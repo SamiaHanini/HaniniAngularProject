@@ -1,0 +1,63 @@
+<div class="container">
+    <form [formGroup]="adresseFormGroup" *ngIf="adresseFormGroup">
+      <div class="form-group">
+        <label>ID</label>
+        <input type="text" class="form-control" formControlName="id" readonly>
+      </div>
+  
+      <div class="form-group">
+        <label>Code postal</label>
+        <input type="text" class="form-control" formControlName="cp"
+               [ngClass]="{'is-invalid': submitted && adresseFormGroup.controls.cp.errors}">
+        <div *ngIf="submitted && adresseFormGroup.controls.cp.errors" class="invalid-feedback">
+          <div *ngIf="adresseFormGroup.controls.cp.errors.required">
+            Code postal obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Localité</label>
+        <input type="text" class="form-control" formControlName="localite"
+               [ngClass]="{'is-invalid': submitted && adresseFormGroup.controls.localite.errors}">
+        <div *ngIf="submitted && adresseFormGroup.controls.localite.errors" class="invalid-feedback">
+          <div *ngIf="adresseFormGroup.controls.localite.errors.required">
+            Localité obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Rue</label>
+        <input type="text" class="form-control" formControlName="rue"
+               [ngClass]="{'is-invalid': submitted && adresseFormGroup.controls.rue.errors}">
+        <div *ngIf="submitted && adresseFormGroup.controls.rue.errors" class="invalid-feedback">
+          <div *ngIf="adresseFormGroup.controls.rue.errors.required">
+            Rue obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label>Numéro</label>
+        <input type="text" class="form-control" formControlName="num"
+               [ngClass]="{'is-invalid': submitted && adresseFormGroup.controls.num.errors}">
+        <div *ngIf="submitted && adresseFormGroup.controls.num.errors" class="invalid-feedback">
+          <div *ngIf="adresseFormGroup.controls.num.errors.required">
+            Numéro obligatoire
+          </div>
+        </div>
+      </div>
+  
+      <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar navbar-nav">
+          <li class="nav-item">
+            <button (click)="onUpdateAdresse()" class="btn btn-success">
+              Save
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </form>
+  </div>
+  
