@@ -44,7 +44,7 @@ import { EditAdresseComponent } from './components/editadresse/editadresse.compo
     NewAdresseComponent,
     EditClientComponent,
     EditAdresseComponent
-  
+
   ],
   providers: [],
   bootstrap: [AppComponent]
