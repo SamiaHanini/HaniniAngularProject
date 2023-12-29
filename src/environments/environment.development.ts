@@ -1,5 +1,5 @@
 export let environment: { production: boolean; host: string };
 environment = {
-  production: false,
+  production: true,
   host: 'http://localhost:4200'
 };
