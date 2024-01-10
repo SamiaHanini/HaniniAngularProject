@@ -8,7 +8,6 @@ import { Output } from '@angular/core';
 @Component({
   selector: 'app-newadresse',
   templateUrl: './newadresse.component.html',
-  styleUrls: ['./newadresse.component.css']
 })
 
 export class NewAdresseComponent implements OnInit {

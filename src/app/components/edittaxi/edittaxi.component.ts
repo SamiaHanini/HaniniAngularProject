@@ -5,7 +5,6 @@ import { TaxisService } from '../../services/taxis.service';
 @Component({
   selector: 'app-edittaxi',
   templateUrl: './edittaxi.component.html',
-  styleUrls: ['./edittaxi.component.css']
 })
 export class EditTaxiComponent implements OnInit {
   taxiFormGroup?: FormGroup;

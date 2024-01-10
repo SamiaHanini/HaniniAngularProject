@@ -10,7 +10,6 @@ import { Adresse } from '../../entities/adresse.entities';
 @Component({
   selector: 'app-newlocation',
   templateUrl: './newlocation.component.html',
-  styleUrls: ['./newlocation.component.css']
 })
 export class NewLocationComponent implements OnInit {
 
@@ -62,11 +61,11 @@ export class NewLocationComponent implements OnInit {
     validateDate(control: AbstractControl): { [key: string]: any } | null {
       const selectedDate = new Date(control.value);
       const currentDate = new Date();
-    
+
       if (selectedDate < currentDate) {
         return { 'invalidDate': true };
       }
-    
+
       return null;
     }
 

@@ -5,7 +5,6 @@ import { AdressesService } from '../../services/adresses.service';
 @Component({
   selector: 'app-editadresse',
   templateUrl: './editadresse.component.html',
-  styleUrls: ['./editadresse.component.css']
 })
 export class EditAdresseComponent implements OnInit {
   adresseFormGroup?: FormGroup;

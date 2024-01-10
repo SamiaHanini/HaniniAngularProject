@@ -7,7 +7,6 @@ import { Taxi } from '../../entities/taxi.entities';
 @Component({
   selector: 'app-newtaxi',
   templateUrl: './newtaxi.component.html',
-  styleUrls: ['./newtaxi.component.css']
 })
 
 export class NewTaxiComponent {

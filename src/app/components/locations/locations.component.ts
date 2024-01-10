@@ -6,7 +6,6 @@ import { LocationsService } from '../../services/locations.service';
 @Component({
   selector: 'app-locations',
   templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.css']
 })
 export class LocationsComponent implements OnInit {
   locations?: Location[];
@@ -47,11 +46,11 @@ export class LocationsComponent implements OnInit {
             this.locations?.splice(index, 1);
           }
           (window as any).sendAlert('success', 'Location deleted!');
-                  },    
+                  },
            });
           }
         }
-        
+
         onNewLocation() {
         this.router.navigateByUrl('newLocation');
         }

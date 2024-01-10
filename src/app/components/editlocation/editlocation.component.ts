@@ -5,7 +5,6 @@ import { LocationsService } from '../../services/locations.service';
 @Component({
   selector: 'app-editlocation',
   templateUrl: './editlocation.component.html',
-  styleUrls: ['./editlocation.component.css']
 })
 export class EditLocationComponent implements OnInit {
   locationFormGroup?: FormGroup;
@@ -34,11 +33,11 @@ export class EditLocationComponent implements OnInit {
   validateDate(control: AbstractControl): { [key: string]: any } | null {
     const selectedDate = new Date(control.value);
     const currentDate = new Date();
-  
+
     if (selectedDate < currentDate) {
       return { 'invalidDate': true };
     }
-  
+
     return null;
   }
 }

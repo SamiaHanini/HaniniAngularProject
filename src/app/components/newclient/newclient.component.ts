@@ -7,7 +7,6 @@ import { Client } from '../../entities/client.entities';
 @Component({
   selector: 'app-newclient',
   templateUrl: './newclient.component.html',
-  styleUrls: ['./newclient.component.css']
 })
 
 export class NewClientComponent implements OnInit {

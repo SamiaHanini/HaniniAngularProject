@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Adresse } from '../../entities/adresse.entities'; 
+import { Adresse } from '../../entities/adresse.entities';
 import { AdressesService } from '../../services/adresses.service';
 
 @Component({
   selector: 'app-adresses',
   templateUrl: './adresses.component.html',
-  styleUrls: ['./adresses.component.css']
 })
 export class AdressesComponent implements OnInit {
 
@@ -24,7 +23,7 @@ export class AdressesComponent implements OnInit {
       }
     });
   }
-  
+
   getAdresseByLocalite(value: { localite: string }) {
     this.adressesService.getAdresseByLocalite(value.localite).subscribe({
       next: data => {
@@ -32,7 +31,7 @@ export class AdressesComponent implements OnInit {
       }
     });
   }
-  
+
   showAll() {
     this.adressesService.getAllAdresses().subscribe({
       next: data => {
@@ -62,6 +61,6 @@ export class AdressesComponent implements OnInit {
   }
 
   onNewAdresse() {
-    this.router.navigateByUrl('newAdresse'); 
+    this.router.navigateByUrl('newAdresse');
   }
 }

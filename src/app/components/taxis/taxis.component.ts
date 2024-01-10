@@ -6,7 +6,6 @@ import { TaxisService } from '../../services/taxis.service';
 @Component({
   selector: 'app-taxis',
   templateUrl: './taxis.component.html',
-  styleUrls: ['./taxis.component.css']
 })
 export class TaxisComponent implements OnInit{
 

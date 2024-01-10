@@ -1,4 +1,5 @@
 export const environment = {
   production: true,
-  host: 'https://haniniangularproject.com'
+  host: 'http://localhost:4200'
 };
+

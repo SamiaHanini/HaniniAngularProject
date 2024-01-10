@@ -5,7 +5,6 @@ import { ClientsService } from '../../services/clients.service';
 @Component({
   selector: 'app-editclient',
   templateUrl: './editclient.component.html',
-  styleUrls: ['./editclient.component.css']
 })
 export class EditClientComponent implements OnInit {
   clientFormGroup?: FormGroup;

@@ -6,18 +6,17 @@ import { ClientsService } from '../../services/clients.service';
 @Component({
   selector: 'app-clients',
   templateUrl: './clients.component.html',
-  styleUrls: ['./clients.component.css'] 
 })
 export class ClientsComponent implements OnInit {
 
   clients?: Client[];
-  loading = false; 
+  loading = false;
 
   constructor(private clientsService: ClientsService, private router: Router) {}
 
   ngOnInit(): void {
   }
-  
+
   onSearch(value: { id: number }) {
     this.clientsService.getClient(value.id).subscribe({
       next: data => {
@@ -25,7 +24,7 @@ export class ClientsComponent implements OnInit {
       }
     });
   }
-  
+
     getClientByNomAndPrenomAndTel(value: { nom: string, prenom: string, tel: string }) {
       this.loading = true;
 
