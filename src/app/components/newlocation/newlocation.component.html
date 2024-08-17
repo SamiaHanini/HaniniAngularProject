@@ -64,7 +64,9 @@
           </select>
         </div>
       </div>
-
+      <div *ngIf="locationFormGroup?.hasError('addressesSame') && submitted">
+        Les adresses de départ et d'arrivée ne peuvent pas être identiquese.
+      </div>      
       <button (click)="onSaveLocation()" class="btn btn-success">
         Save
       </button>

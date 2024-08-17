@@ -21,8 +21,8 @@ export class NewAdresseComponent implements OnInit {
   ngOnInit(): void {
       this.adresseFormGroup = this.fb.group({
       cp: ['', [Validators.required, Validators.pattern('^[0-9]+$')]],
-      localite: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
-      rue: ['', [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+      localite: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-žÀ-ÿ ]*$')]],
+      rue: ['', [Validators.required, Validators.pattern('^[a-zA-ZÀ-žÀ-ÿ ]*$')]], 
       num: ['', [Validators.required]],
     });
   }

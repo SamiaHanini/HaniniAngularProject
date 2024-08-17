@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { LocationsService } from '../../services/locations.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../entities/client.entities';
@@ -14,7 +14,7 @@ import { forkJoin } from 'rxjs';
   selector: 'app-newlocation',
   templateUrl: './newlocation.component.html',
 })
-export class NewLocationComponent implements OnInit{
+export class NewLocationComponent implements OnInit {
 
   @Output() addedLocation = new EventEmitter<any>();
   locationFormGroup?: FormGroup;
@@ -50,12 +50,13 @@ export class NewLocationComponent implements OnInit{
     this.locationFormGroup = this.fb.group({
       dateloc: ['', [Validators.required, this.validateDate]],
       kmtotal: ['', [Validators.required, Validators.min(1)]],
-      acompte: ['', [Validators.required, Validators.min(1)]],
+      acompte: ['', [Validators.required, Validators.min(0)]],
       taxifk: ['', Validators.required],
       clientfk: ['', Validators.required],
       adressedepart: ['', Validators.required],
       adressefin: ['', Validators.required],
-    });
+    }, { validator: this.addressesNotSame });
+
   }
 
   onSaveLocation(): void {
@@ -106,12 +107,23 @@ export class NewLocationComponent implements OnInit{
     }
   }
 
-  validateDate(control: AbstractControl): { [key: string]: any } | null {
+  validateDate(control: AbstractControl): ValidationErrors | null {
     const selectedDate = new Date(control.value);
     const currentDate = new Date();
 
     if (selectedDate < currentDate) {
       return { 'invalidDate': true };
+    }
+
+    return null;
+  }
+
+  addressesNotSame(group: FormGroup): ValidationErrors | null {
+    const adressedepart = group.get('adressedepart')?.value;
+    const adressefin = group.get('adressefin')?.value;
+
+    if (adressedepart && adressefin && adressedepart === adressefin) {
+      return { 'addressesSame': true };
     }
 
     return null;

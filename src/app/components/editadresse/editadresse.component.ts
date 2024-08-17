@@ -22,8 +22,8 @@ export class EditAdresseComponent implements OnInit {
     this.adresseFormGroup = this.fb.group({
         idadresse: [adresse.idadresse],
         cp: [adresse.cp, [Validators.required, Validators.pattern('^[0-9]+$')]],
-        localite: [adresse.localite, [Validators.required, Validators.pattern('[a-zA-Z- ]*')]],
-        rue: [adresse.rue, [Validators.required, Validators.pattern('[a-zA-Z ]*')]],
+        localite: [adresse.localite, [Validators.required, Validators.pattern('^[a-zA-ZÀ-žÀ-ÿ ]*$')]],
+        rue: [adresse.rue, [Validators.required, Validators.pattern('^[a-zA-ZÀ-žÀ-ÿ ]*$')]],
         num: [adresse.num, [Validators.required]],
         });
       }, error => {
