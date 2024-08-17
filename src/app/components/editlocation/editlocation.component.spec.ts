@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditLocationComponent } from './editlocation.component';
 
 
-describe('EditlocationComponent', () => {
+describe('EditLocationComponent', () => {
   let component: EditLocationComponent;
   let fixture: ComponentFixture<EditLocationComponent>;
 

@@ -34,7 +34,7 @@ export class NewAdresseComponent implements OnInit {
       data => {
         this.addedAdresse.emit(data);
         alert('Sauvegarde réussie');
-        this.router.navigateByUrl('/adresses');
+        this.router.navigate(['/adresses']);
       }
     );
 

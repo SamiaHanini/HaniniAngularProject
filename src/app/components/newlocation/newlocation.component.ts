@@ -1,72 +1,119 @@
-import { Component, EventEmitter, Output, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { LocationsService } from '../../services/locations.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../entities/client.entities';
 import { Taxi } from '../../entities/taxi.entities';
 import { Adresse } from '../../entities/adresse.entities';
-
+import { ClientsService } from '../../services/clients.service';
+import { TaxisService } from '../../services/taxis.service';
+import { AdressesService } from '../../services/adresses.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-newlocation',
   templateUrl: './newlocation.component.html',
 })
-export class NewLocationComponent implements OnInit {
+export class NewLocationComponent implements OnInit{
 
   @Output() addedLocation = new EventEmitter<any>();
   locationFormGroup?: FormGroup;
-
   submitted = false;
+  idlocation: number;
+  clients: Client[] = [];
+  taxis: Taxi[] = [];
+  adresses: Adresse[] = [];
 
-  constructor(private fb: FormBuilder, private locationsService: LocationsService, private router: Router) {}
+  constructor(
+    private fb: FormBuilder, 
+    private locationService: LocationsService, 
+    private route: ActivatedRoute, 
+    private router: Router, 
+    private clientService: ClientsService, 
+    private taxiService: TaxisService,
+    private adresseService: AdressesService
+  ) {
+    this.idlocation = route.snapshot.params.id;
 
-  ngOnInit(): void {
-    this.locationFormGroup = this.fb.group({
-      dateLoc: ['', [Validators.required, this.validateDate]],
-      kmtotal: ['', [Validators.required, Validators.min(1)]],
-      acompte: ['', [Validators.required, Validators.min(1)]],
+    this.clientService.getAllClients().subscribe((clients) => {
+      this.clients = clients;
+    });
+    this.taxiService.getAllTaxis().subscribe((taxis) => {
+      this.taxis = taxis;
+    });
+    this.adresseService.getAllAdresses().subscribe((adresses) => {
+      this.adresses = adresses;
     });
   }
 
-  onSaveLocation() {
+  ngOnInit(): void {
+    this.locationFormGroup = this.fb.group({
+      dateloc: ['', [Validators.required, this.validateDate]],
+      kmtotal: ['', [Validators.required, Validators.min(1)]],
+      acompte: ['', [Validators.required, Validators.min(1)]],
+      taxifk: ['', Validators.required],
+      clientfk: ['', Validators.required],
+      adressedepart: ['', Validators.required],
+      adressefin: ['', Validators.required],
+    });
+  }
+
+  onSaveLocation(): void {
     this.submitted = true;
     if (this.locationFormGroup?.invalid) {
       return;
     }
-    this.locationsService.saveLocation(this.locationFormGroup?.value).subscribe(
-      data => {
-        alert('Sauvegarde réussie');
-        this.router.navigateByUrl('/locations');
-      },
-      error => {
-        console.error(error);
-      }
-    );
+    if (this.locationFormGroup) {
+      const datelocValue = new Date(this.locationFormGroup.get('dateloc')?.value);
+      datelocValue.setHours(0, 0, 0, 0);
+      this.locationFormGroup.patchValue({ dateloc: datelocValue });
 
-    this.locationFormGroup?.reset();
+      const taxifkId = this.locationFormGroup.get('taxifk')?.value;
+      const clientfkId = this.locationFormGroup.get('clientfk')?.value;
+      const adressedepartId = this.locationFormGroup.get('adressedepart')?.value;
+      const adressefinId = this.locationFormGroup.get('adressefin')?.value;
+
+      forkJoin([
+        this.taxiService.getTaxi(taxifkId),
+        this.clientService.getClient(clientfkId),
+        this.adresseService.getAdresse(adressedepartId),
+        this.adresseService.getAdresse(adressefinId)
+      ]).subscribe(([taxi, client, adresseDepart, adresseFin]) => {
+        if (this.locationFormGroup) {
+          this.locationFormGroup.patchValue({
+            taxifk: taxi,
+            clientfk: client,
+            adressedepart: adresseDepart,
+            adressefin: adresseFin
+          });
+
+          this.locationService.saveLocation(this.locationFormGroup?.value).subscribe(
+            data => {
+              this.addedLocation.emit(data);
+              alert('Sauvegarde réussie');
+              this.router.navigate(['/locations']);
+            },
+            err => {
+              console.error('Error saving location:', err);
+            }
+          );
+
+          this.locationFormGroup?.reset();
+        }
+      }, error => {
+        console.error('Error fetching entities:', error);
+      });
+    }
   }
 
-  onAddedClient(client: Client) {
-    console.log('Nouveau client ajouté :', client);
-  }
+  validateDate(control: AbstractControl): { [key: string]: any } | null {
+    const selectedDate = new Date(control.value);
+    const currentDate = new Date();
 
-  onAddedTaxi(taxi: Taxi) {
-    console.log('Nouveau taxi ajouté');
-  }
-
-  onAddedAdresse(adresse: Adresse) {
-    console.log('Nouvelle adresse ajoutée');
+    if (selectedDate < currentDate) {
+      return { 'invalidDate': true };
     }
 
-    validateDate(control: AbstractControl): { [key: string]: any } | null {
-      const selectedDate = new Date(control.value);
-      const currentDate = new Date();
-
-      if (selectedDate < currentDate) {
-        return { 'invalidDate': true };
-      }
-
-      return null;
-    }
-
+    return null;
   }
+}

@@ -30,16 +30,34 @@
               <th scope="col">Immatriculation</th>
               <th scope="col">Carburant</th>
               <th scope="col">Prix par kilomètre</th>
+              <th scope="col">Kilomètres total</th>
+              <th scope="col">Montant total des locations</th>
+              <th scope="col">Clients</th>
+              <th scope="col">Locations</th>
               <th scope="col">Actions</th>
             </tr>
             </thead>
             <tbody>
-            <tr *ngFor="let taxi of taxis">
-              <td>{{ taxi.id }}</td>
+            <tr *ngFor="let taxi of taxis; let i = index">
+              <td>{{ taxi.idtaxi }}</td>
               <td>{{ taxi.immatriculation }}</td>
               <td>{{ taxi.carburant }}</td>
               <td>{{ taxi.prixkm }}</td>
+              <td>{{ this.kmtotal ? this.kmtotal[i]:0 }}</td>
+              <td>{{ this.montanttotal ? this.montanttotal[i]:0 }}</td>
               <td>
+                <button (click)="getClientsForTaxi(taxi.idtaxi)" class="btn btn-primary btn-sm">
+                  <span class="fa fa-users"></span> 
+                  {{ selectedTaxiId === taxi.idtaxi ? 'Cacher' : 'Afficher' }} Clients
+                </button>
+              </td>   
+              <td>
+                <button (click)="getLocationsForTaxi(taxi.idtaxi)" class="btn btn-primary btn-sm">
+                  <span class="fa fa-users"></span> 
+                  {{ selectedTaxiId === taxi.idtaxi ? 'Cacher' : 'Afficher' }} Locations
+                </button>
+              </td>    
+              <td> 
                 <button (click)="onEdit(taxi)" class="btn btn-primary btn-sm me-2">
                   <span class="fa fa-edit"></span> Modifier
                 </button>

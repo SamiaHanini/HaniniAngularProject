@@ -1,71 +1,78 @@
 <div class="container">
-    <div class="card mt-4">
-      <div class="card-body">
-        <h3 class="card-title">Client</h3>
-  
-        <form #f="ngForm" (ngSubmit)="getClientByNomAndPrenomAndTel(f.value)" class="mb-3">
-          <div class="input-group">
-            <input type="text" class="form-control" ngModel name="nom" placeholder="Nom du client">
-            <input type="text" class="form-control" ngModel name="prenom" placeholder="Prénom du client">
-            <input type="text" class="form-control" ngModel name="tel" placeholder="Numéro de téléphone">
-            <button type="submit" class="btn btn-primary">Rechercher</button>
-          </div>
-        </form>
-        
-  
-        <div class="d-flex justify-content-between align-items-center">
-          <button class="btn btn-primary" (click)="showAll()">Afficher tous les clients</button>
-          <button class="btn btn-success" (click)="onNewClient()">Ajouter un nouveau client</button>
+  <div class="card mt-4">
+    <div class="card-body">
+      <h3 class="card-title">Client</h3>
+
+      <form #f="ngForm" (ngSubmit)="getClientByNomAndPrenomAndTel(f.value)" class="mb-3">
+        <div class="input-group">
+          <input type="text" class="form-control" ngModel name="nom" placeholder="Nom du client">
+          <input type="text" class="form-control" ngModel name="prenom" placeholder="Prénom du client">
+          <input type="text" class="form-control" ngModel name="tel" placeholder="Numéro de téléphone">
+          <button type="submit" class="btn btn-primary">Rechercher</button>
         </div>
+      </form>
+      
+
+      <div class="d-flex justify-content-between align-items-center">
+        <button class="btn btn-primary" (click)="showAll()">Afficher tous les clients</button>
+        <button class="btn btn-success" (click)="onNewClient()">Ajouter un nouveau client</button>
       </div>
     </div>
-  
-    <ng-container *ngIf="clients">
-      <ng-container *ngIf="clients.length > 0; else inconnu">
-        <div class="card mt-4">
-          <div class="card-body">
-            <h3 class="card-title">Clients trouvés :</h3>
-  
-            <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">ID</th>
-                  <th scope="col">Mail</th>
-                  <th scope="col">Nom</th>
-                  <th scope="col">Prénom</th>
-                  <th scope="col">Téléphone</th>
-                  <th scope="col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let client of clients">
-                  <td>{{ client.id }}</td>
-                  <td>{{ client.mail }}</td>
-                  <td>{{ client.nom }}</td>
-                  <td>{{ client.prenom }}</td>
-                  <td>{{ client.tel }}</td>
-                  <td>
-                    <button (click)="onEdit(client)" class="btn btn-primary btn-sm me-2">
-                      <span class="fa fa-edit"></span> Modifier
-                    </button>
-                    <button (click)="onDelete(client)" class="btn btn-danger btn-sm">
-                      <span class="fa fa-trash-o"></span> Supprimer
-                    </button>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </ng-container>
-  
-      <ng-template #inconnu>
-        <div class="card mt-4">
-          <div class="card-body">
-            <h3 class="card-title">Aucun client trouvé</h3>
-          </div>
-        </div>
-      </ng-template>
-    </ng-container>
   </div>
-  
+
+  <ng-container *ngIf="clients">
+    <ng-container *ngIf="clients.length > 0; else inconnu">
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="card-title">Clients trouvés :</h3>
+
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Mail</th>
+                <th scope="col">Nom</th>
+                <th scope="col">Prénom</th>
+                <th scope="col">Téléphone</th>
+                <th scope="col">Locations</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let client of clients">
+                <td>{{ client.idclient }}</td>
+                <td>{{ client.mail }}</td>
+                <td>{{ client.nom }}</td>
+                <td>{{ client.prenom }}</td>
+                <td>{{ client.tel }}</td>
+                <td>
+                  <button (click)="getLocationsForClient(client.idclient)" class="btn btn-primary btn-sm">
+                    <span class="fa fa-users"></span> 
+                    {{ selectedClientId === client.idclient ? 'Cacher' : 'Afficher' }} Locations
+                  </button>
+                </td>    
+                <td>
+                  <button (click)="onEdit(client)" class="btn btn-primary btn-sm me-2">
+                    <span class="fa fa-edit"></span> Modifier
+                  </button>
+                  <button (click)="onDelete(client)" class="btn btn-danger btn-sm">
+                    <span class="fa fa-trash-o"></span> Supprimer
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </ng-container>
+
+    <ng-template #inconnu>
+      <div class="card mt-4">
+        <div class="card-body">
+          <h3 class="card-title">Aucun client trouvé</h3>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+</div>
+

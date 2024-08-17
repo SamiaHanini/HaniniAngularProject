@@ -1,52 +1,51 @@
 <div class="container">
-    <form [formGroup]="taxiFormGroup" *ngIf="taxiFormGroup">
-      <div class="form-group">
-        <label>ID</label>
-        <input type="text" class="form-control" formControlName="id" readonly>
-      </div>
-  
-      <div class="form-group">
-        <label>Immatriculation</label>
-        <input type="text" class="form-control" formControlName="immatriculation"
-               [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.immatriculation.errors}">
-        <div *ngIf="submitted && taxiFormGroup.controls.immatriculation.errors" class="invalid-feedback">
-          <div *ngIf="taxiFormGroup.controls.immatriculation.errors.required">
-            Immatriculation obligatoire
-          </div>
-        </div>
-      </div>
-  
-      <div class="form-group">
-        <label>Carburant</label>
-        <input type="text" class="form-control" formControlName="carburant"
-               [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.carburant.errors}">
-        <div *ngIf="submitted && taxiFormGroup.controls.carburant.errors" class="invalid-feedback">
-          <div *ngIf="taxiFormGroup.controls.carburant.errors.required">
-            Carburant obligatoire
-          </div>
-        </div>
-      </div>
-  
+  <form [formGroup]="taxiFormGroup" *ngIf="taxiFormGroup">
     <div class="form-group">
-        <label>Prix au km</label>
-        <input type="text" class="form-control" formControlName="prixKm"
-                     [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.prixKm.errors}">
-        <div *ngIf="submitted && taxiFormGroup.controls.prixKm.errors" class="invalid-feedback">
-            <div *ngIf="taxiFormGroup.controls.prixKm.errors.required">
-                Prix au km obligatoire
-            </div>
-        </div>
+      <label>ID</label>
+      <input type="text" class="form-control" formControlName="idtaxi" readonly>
     </div>
-  
-      <nav class="navbar navbar-expand-sm bg-light navbar-light">
-        <ul class="navbar navbar-nav">
-          <li class="nav-item">
-            <button (click)="onUpdateTaxi()" class="btn btn-success">
-              Save
-            </button>
-          </li>
-        </ul>
-      </nav>
-    </form>
+
+    <div class="form-group">
+      <label>Immatriculation</label>
+      <input type="text" class="form-control" formControlName="immatriculation"
+             [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.immatriculation.errors}">
+      <div *ngIf="submitted && taxiFormGroup.controls.immatriculation.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.immatriculation.errors.required">
+          Immatriculation obligatoire
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Carburant</label>
+      <input type="text" class="form-control" formControlName="carburant"
+             [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.carburant.errors}">
+      <div *ngIf="submitted && taxiFormGroup.controls.carburant.errors" class="invalid-feedback">
+        <div *ngIf="taxiFormGroup.controls.carburant.errors.required">
+          Carburant obligatoire
+        </div>
+      </div>
+    </div>
+
+  <div class="form-group">
+      <label>Prix au km</label>
+      <input type="text" class="form-control" formControlName="prixkm"
+                   [ngClass]="{'is-invalid': submitted && taxiFormGroup.controls.prixkm.errors}">
+      <div *ngIf="submitted && taxiFormGroup.controls.prixkm.errors" class="invalid-feedback">
+          <div *ngIf="taxiFormGroup.controls.prixkm.errors.required">
+              Prix au km obligatoire
+          </div>
+      </div>
   </div>
-  
+
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <ul class="navbar navbar-nav">
+        <li class="nav-item">
+          <button (click)="onUpdateTaxi()" class="btn btn-success">
+            Save
+          </button>
+        </li>
+      </ul>
+    </nav>
+  </form>
+</div>

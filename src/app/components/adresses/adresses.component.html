@@ -5,7 +5,7 @@
 
       <form #f="ngForm" (ngSubmit)="getAdresseByLocalite(f.value)" class="mb-3">
         <div class="input-group">
-            <input type="text" class="form-control" ngModel name="localite" placeholder="Localité des adresses">
+            <input type="text" class="form-control" ngModel name="localite" placeholder="Entrez la localité">
           <button type="submit" class="btn btn-primary">Rechercher</button>
         </div>
       </form>
@@ -36,7 +36,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let adresse of adresses">
-                <td>{{ adresse.id }}</td>
+                <td>{{ adresse.idadresse }}</td>
                 <td>{{ adresse.cp }}</td>
                 <td>{{ adresse.localite }}</td>
                 <td>{{ adresse.rue }}</td>

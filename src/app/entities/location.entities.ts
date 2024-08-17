@@ -1,15 +1,16 @@
 import {Adresse} from './adresse.entities';
-import {Client} from './client.entities';
-import {Taxi} from './taxi.entities';
+import { Client } from './client.entities';
+import { Taxi } from './taxi.entities';
 
-export interface Location{
-    id: number;
-    dateLoc: Date;
+export interface LocationEntity{
+    idlocation: number;
+    dateloc: string;
     kmtotal: number;
     acompte: number;
     total: number;
-    client: Client;
-    taxi: Taxi;
-    adresseDebut: Adresse;
-    adresseFin: Adresse;
+    taxifk: Taxi;
+    clientfk: Client;
+    adressedepart: Adresse;
+    adressefin: Adresse;
+
 }

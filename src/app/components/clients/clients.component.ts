@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Client } from '../../entities/client.entities';
 import { ClientsService } from '../../services/clients.service';
+import { TaxisService } from '../../services/taxis.service';
 
 @Component({
   selector: 'app-clients',
@@ -11,8 +12,24 @@ export class ClientsComponent implements OnInit {
 
   clients?: Client[];
   loading = false;
+  idtaxi: number;
+  selectedClientId?: number;
 
-  constructor(private clientsService: ClientsService, private router: Router) {}
+  
+  constructor(private clientsService: ClientsService, private router: Router, private activeroute: ActivatedRoute, private taxisService: TaxisService) {
+    this.idtaxi = this.activeroute.snapshot.params.taxiId;
+      if (this.idtaxi) {
+        this.loading = true;
+        this.taxisService.getClientsForTaxi(this.idtaxi).subscribe({
+          next: data => {
+            this.clients = data;
+          },
+          complete: () => {
+            this.loading = false;
+          }
+        });
+      }
+  }
 
   ngOnInit(): void {
   }
@@ -30,12 +47,19 @@ export class ClientsComponent implements OnInit {
 
       this.clientsService.getClientByNomAndPrenomAndTel(value.nom, value.prenom, value.tel).subscribe({
         next: data => {
-          this.clients = data;
+          this.clients = data ? [data] : [];
         },
         complete: () => {
           this.loading = false;
         }
       });
+    }
+
+    getLocationsForClient(clientId: number): void {
+      if (clientId) {
+        this.loading = true;
+        this.router.navigate(['/locations', { clientId }]); 
+      }
     }
 
 
@@ -49,8 +73,9 @@ export class ClientsComponent implements OnInit {
 
 
   onEdit(client: Client) {
-    this.router.navigateByUrl('editClient/' + client.id);
+    this.router.navigate(['/editclient', client.idclient]);
   }
+  
 
   onDelete(client: Client) {
     const confirmation = confirm('Are you sure you want to delete?');
@@ -69,6 +94,6 @@ export class ClientsComponent implements OnInit {
   }
 
   onNewClient() {
-    this.router.navigateByUrl('newClient');
+    this.router.navigate(['newclient']);
   }
 }

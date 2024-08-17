@@ -27,7 +27,7 @@ export class AdressesComponent implements OnInit {
   getAdresseByLocalite(value: { localite: string }) {
     this.adressesService.getAdresseByLocalite(value.localite).subscribe({
       next: data => {
-        this.adresses = data ? [data] : [];
+        this.adresses = data;
       }
     });
   }
@@ -41,9 +41,10 @@ export class AdressesComponent implements OnInit {
   }
 
   onEdit(adresse: Adresse) {
-    this.router.navigateByUrl('editAdresse/' + adresse.id); // Update the route as needed
+    this.router.navigate(['/editadresse', adresse.idadresse]);
   }
 
+  
   onDelete(adresse: Adresse) {
     const confirmation = confirm('Are you sure you want to delete?');
 
@@ -61,6 +62,6 @@ export class AdressesComponent implements OnInit {
   }
 
   onNewAdresse() {
-    this.router.navigateByUrl('newAdresse');
+    this.router.navigate(['newadresse']);
   }
 }
