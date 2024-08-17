@@ -42,7 +42,7 @@ export class EditLocationComponent implements OnInit {
         idlocation: [location.idlocation],
         dateloc: [location.dateloc, [Validators.required, this.validateDate]],
         kmtotal: [location.kmtotal, [Validators.required, Validators.min(1)]],
-        acompte: [location.acompte, [Validators.required, Validators.min(1)]],
+        acompte: [location.acompte, [Validators.required, Validators.min(0)]],
         taxifk: [location.taxifk.idtaxi],
         clientfk: [location.clientfk.idclient],
         adressedepart: [location.adressedepart.idadresse],
@@ -57,7 +57,12 @@ export class EditLocationComponent implements OnInit {
   updateLocation(): void {
     this.submitted = true;
   
-    if(this.locationFormGroup){
+    if(this.locationFormGroup && this.locationFormGroup.valid){
+
+      const datelocValue = new Date(this.locationFormGroup.get('dateloc')?.value);
+      datelocValue.setHours(0, 0, 0, 0);
+      this.locationFormGroup.patchValue({ dateloc: datelocValue });
+      
       const taxifkId = this.locationFormGroup.get('taxifk')?.value;
       const clientfkId = this.locationFormGroup.get('clientfk')?.value;
       const adressedepartId = this.locationFormGroup.get('adressedepart')?.value;
